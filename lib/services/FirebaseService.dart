@@ -4,51 +4,20 @@ import 'package:app_dev_final/models/productModel.dart';
 class FirebaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<List<Category>> getCategories() async {
-    var categoriesSnapshot = await _db.collection('categories').get();
-    return categoriesSnapshot.docs.map((doc) {
-      var data = doc.data();
-      return Category(
-        id: doc.id,
-        name: data['name'],
-        subCategories: [],
-      );
+  Future<List<Product>> getAllProducts() async {
+    var productsSnapshot = await _db.collectionGroup('products').get();
+    return productsSnapshot.docs.map((doc) {
+      return Product.fromMap(doc.data() as Map<String, dynamic>, doc.id);
     }).toList();
   }
 
-  Future<List<SubCategory>> getSubCategories(String categoryId) async {
-    var subCategoriesSnapshot = await _db
-        .collection('categories')
-        .doc(categoryId)
-        .collection('subCategories')
-        .get();
-    return subCategoriesSnapshot.docs.map((doc) {
-      var data = doc.data();
-      return SubCategory(
-        id: doc.id,
-        name: data['name'],
-        products: [],
-      );
-    }).toList();
-  }
-
-  Future<List<Product>> getProducts(String categoryId, String subCategoryId) async {
+  Future<List<Product>> getProductsBySubCategory(String subCategoryId) async {
     var productsSnapshot = await _db
-        .collection('categories')
-        .doc(categoryId)
-        .collection('subCategories')
-        .doc(subCategoryId)
-        .collection('products')
+        .collectionGroup('products')
+        .where('subCategoryId', isEqualTo: subCategoryId)
         .get();
     return productsSnapshot.docs.map((doc) {
-      var data = doc.data();
-      return Product(
-        id: doc.id,
-        name: data['name'],
-        description: data['description'],
-        price: data['price'],
-        imageUrl: data['imageUrl'],
-      );
+      return Product.fromMap(doc.data() as Map<String, dynamic>, doc.id);
     }).toList();
   }
 }

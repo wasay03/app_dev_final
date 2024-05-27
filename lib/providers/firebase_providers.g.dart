@@ -21,21 +21,22 @@ final firebaseServiceProvider = AutoDisposeProvider<FirebaseService>.internal(
 );
 
 typedef FirebaseServiceRef = AutoDisposeProviderRef<FirebaseService>;
-String _$categoriesHash() => r'ff560358da8d9094d10e5720539632a4729a0b6a';
+String _$allProductsHash() => r'a10ed2b87fb990542abb7f1e37d56ff74bd448bf';
 
-/// See also [categories].
-@ProviderFor(categories)
-final categoriesProvider = AutoDisposeFutureProvider<List<Category>>.internal(
-  categories,
-  name: r'categoriesProvider',
+/// See also [allProducts].
+@ProviderFor(allProducts)
+final allProductsProvider = AutoDisposeFutureProvider<List<Product>>.internal(
+  allProducts,
+  name: r'allProductsProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$categoriesHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$allProductsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef CategoriesRef = AutoDisposeFutureProviderRef<List<Category>>;
-String _$subCategoriesHash() => r'b66309f2d0f7b7abe936400012e1297763bb06ae';
+typedef AllProductsRef = AutoDisposeFutureProviderRef<List<Product>>;
+String _$productsBySubCategoryHash() =>
+    r'34118905c3fea8b0f3edab86811715f096af677e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -58,162 +59,29 @@ class _SystemHash {
   }
 }
 
-/// See also [subCategories].
-@ProviderFor(subCategories)
-const subCategoriesProvider = SubCategoriesFamily();
+/// See also [productsBySubCategory].
+@ProviderFor(productsBySubCategory)
+const productsBySubCategoryProvider = ProductsBySubCategoryFamily();
 
-/// See also [subCategories].
-class SubCategoriesFamily extends Family<AsyncValue<List<SubCategory>>> {
-  /// See also [subCategories].
-  const SubCategoriesFamily();
+/// See also [productsBySubCategory].
+class ProductsBySubCategoryFamily extends Family<AsyncValue<List<Product>>> {
+  /// See also [productsBySubCategory].
+  const ProductsBySubCategoryFamily();
 
-  /// See also [subCategories].
-  SubCategoriesProvider call(
-    String categoryId,
-  ) {
-    return SubCategoriesProvider(
-      categoryId,
-    );
-  }
-
-  @override
-  SubCategoriesProvider getProviderOverride(
-    covariant SubCategoriesProvider provider,
-  ) {
-    return call(
-      provider.categoryId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'subCategoriesProvider';
-}
-
-/// See also [subCategories].
-class SubCategoriesProvider
-    extends AutoDisposeFutureProvider<List<SubCategory>> {
-  /// See also [subCategories].
-  SubCategoriesProvider(
-    String categoryId,
-  ) : this._internal(
-          (ref) => subCategories(
-            ref as SubCategoriesRef,
-            categoryId,
-          ),
-          from: subCategoriesProvider,
-          name: r'subCategoriesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$subCategoriesHash,
-          dependencies: SubCategoriesFamily._dependencies,
-          allTransitiveDependencies:
-              SubCategoriesFamily._allTransitiveDependencies,
-          categoryId: categoryId,
-        );
-
-  SubCategoriesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.categoryId,
-  }) : super.internal();
-
-  final String categoryId;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<SubCategory>> Function(SubCategoriesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: SubCategoriesProvider._internal(
-        (ref) => create(ref as SubCategoriesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        categoryId: categoryId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<List<SubCategory>> createElement() {
-    return _SubCategoriesProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SubCategoriesProvider && other.categoryId == categoryId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, categoryId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin SubCategoriesRef on AutoDisposeFutureProviderRef<List<SubCategory>> {
-  /// The parameter `categoryId` of this provider.
-  String get categoryId;
-}
-
-class _SubCategoriesProviderElement
-    extends AutoDisposeFutureProviderElement<List<SubCategory>>
-    with SubCategoriesRef {
-  _SubCategoriesProviderElement(super.provider);
-
-  @override
-  String get categoryId => (origin as SubCategoriesProvider).categoryId;
-}
-
-String _$productsHash() => r'560c886ee8fb17fba868de530cb702d12e360101';
-
-/// See also [products].
-@ProviderFor(products)
-const productsProvider = ProductsFamily();
-
-/// See also [products].
-class ProductsFamily extends Family<AsyncValue<List<Product>>> {
-  /// See also [products].
-  const ProductsFamily();
-
-  /// See also [products].
-  ProductsProvider call(
-    String categoryId,
+  /// See also [productsBySubCategory].
+  ProductsBySubCategoryProvider call(
     String subCategoryId,
   ) {
-    return ProductsProvider(
-      categoryId,
+    return ProductsBySubCategoryProvider(
       subCategoryId,
     );
   }
 
   @override
-  ProductsProvider getProviderOverride(
-    covariant ProductsProvider provider,
+  ProductsBySubCategoryProvider getProviderOverride(
+    covariant ProductsBySubCategoryProvider provider,
   ) {
     return call(
-      provider.categoryId,
       provider.subCategoryId,
     );
   }
@@ -230,61 +98,57 @@ class ProductsFamily extends Family<AsyncValue<List<Product>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'productsProvider';
+  String? get name => r'productsBySubCategoryProvider';
 }
 
-/// See also [products].
-class ProductsProvider extends AutoDisposeFutureProvider<List<Product>> {
-  /// See also [products].
-  ProductsProvider(
-    String categoryId,
+/// See also [productsBySubCategory].
+class ProductsBySubCategoryProvider
+    extends AutoDisposeFutureProvider<List<Product>> {
+  /// See also [productsBySubCategory].
+  ProductsBySubCategoryProvider(
     String subCategoryId,
   ) : this._internal(
-          (ref) => products(
-            ref as ProductsRef,
-            categoryId,
+          (ref) => productsBySubCategory(
+            ref as ProductsBySubCategoryRef,
             subCategoryId,
           ),
-          from: productsProvider,
-          name: r'productsProvider',
+          from: productsBySubCategoryProvider,
+          name: r'productsBySubCategoryProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$productsHash,
-          dependencies: ProductsFamily._dependencies,
-          allTransitiveDependencies: ProductsFamily._allTransitiveDependencies,
-          categoryId: categoryId,
+                  : _$productsBySubCategoryHash,
+          dependencies: ProductsBySubCategoryFamily._dependencies,
+          allTransitiveDependencies:
+              ProductsBySubCategoryFamily._allTransitiveDependencies,
           subCategoryId: subCategoryId,
         );
 
-  ProductsProvider._internal(
+  ProductsBySubCategoryProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.categoryId,
     required this.subCategoryId,
   }) : super.internal();
 
-  final String categoryId;
   final String subCategoryId;
 
   @override
   Override overrideWith(
-    FutureOr<List<Product>> Function(ProductsRef provider) create,
+    FutureOr<List<Product>> Function(ProductsBySubCategoryRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: ProductsProvider._internal(
-        (ref) => create(ref as ProductsRef),
+      override: ProductsBySubCategoryProvider._internal(
+        (ref) => create(ref as ProductsBySubCategoryRef),
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        categoryId: categoryId,
         subCategoryId: subCategoryId,
       ),
     );
@@ -292,42 +156,37 @@ class ProductsProvider extends AutoDisposeFutureProvider<List<Product>> {
 
   @override
   AutoDisposeFutureProviderElement<List<Product>> createElement() {
-    return _ProductsProviderElement(this);
+    return _ProductsBySubCategoryProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ProductsProvider &&
-        other.categoryId == categoryId &&
+    return other is ProductsBySubCategoryProvider &&
         other.subCategoryId == subCategoryId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, categoryId.hashCode);
     hash = _SystemHash.combine(hash, subCategoryId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin ProductsRef on AutoDisposeFutureProviderRef<List<Product>> {
-  /// The parameter `categoryId` of this provider.
-  String get categoryId;
-
+mixin ProductsBySubCategoryRef on AutoDisposeFutureProviderRef<List<Product>> {
   /// The parameter `subCategoryId` of this provider.
   String get subCategoryId;
 }
 
-class _ProductsProviderElement
-    extends AutoDisposeFutureProviderElement<List<Product>> with ProductsRef {
-  _ProductsProviderElement(super.provider);
+class _ProductsBySubCategoryProviderElement
+    extends AutoDisposeFutureProviderElement<List<Product>>
+    with ProductsBySubCategoryRef {
+  _ProductsBySubCategoryProviderElement(super.provider);
 
   @override
-  String get categoryId => (origin as ProductsProvider).categoryId;
-  @override
-  String get subCategoryId => (origin as ProductsProvider).subCategoryId;
+  String get subCategoryId =>
+      (origin as ProductsBySubCategoryProvider).subCategoryId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

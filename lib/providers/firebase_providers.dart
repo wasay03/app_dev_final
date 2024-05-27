@@ -1,7 +1,5 @@
-import 'package:app_dev_final/services/FirebaseService.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:app_dev_final/services/FirebaseService.dart';
 import 'package:app_dev_final/models/productModel.dart';
 
 part 'firebase_providers.g.dart';
@@ -12,19 +10,13 @@ FirebaseService firebaseService(FirebaseServiceRef ref) {
 }
 
 @riverpod
-Future<List<Category>> categories(CategoriesRef ref) async {
+Future<List<Product>> allProducts(AllProductsRef ref) async {
   final firebaseService = ref.watch(firebaseServiceProvider);
-  return firebaseService.getCategories();
+  return firebaseService.getAllProducts();
 }
 
 @riverpod
-Future<List<SubCategory>> subCategories(SubCategoriesRef ref, String categoryId) async {
+Future<List<Product>> productsBySubCategory(ProductsBySubCategoryRef ref, String subCategoryId) async {
   final firebaseService = ref.watch(firebaseServiceProvider);
-  return firebaseService.getSubCategories(categoryId);
-}
-
-@riverpod
-Future<List<Product>> products(ProductsRef ref, String categoryId, String subCategoryId) async {
-  final firebaseService = ref.watch(firebaseServiceProvider);
-  return firebaseService.getProducts(categoryId, subCategoryId);
+  return firebaseService.getProductsBySubCategory(subCategoryId);
 }
