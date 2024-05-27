@@ -83,3 +83,16 @@ class AuthenticationService{
     await _firebaseAuth.signOut();
   }
 }
+
+
+// class FirestoreService {
+//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+//   Stream<List<UserModel>> getUsers() {
+//     return _firestore.collection('users').snapshots().map((snapshot) {
+//       return snapshot.docs.map((doc) {
+//         return UserModel.fromMap(doc.data() as Map<String, dynamic>);
+//       }).toList();
+//     });
+//   }
+// }

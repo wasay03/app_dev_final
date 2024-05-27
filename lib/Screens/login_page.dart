@@ -54,7 +54,7 @@ class LoginPage extends ConsumerWidget {
                               MaterialPageRoute(builder: (context) => HomePage()),
                             );
                           });
-                        } catch (e) {
+                        }catch (e) {
                           print(e.toString());
                         }
                       },
